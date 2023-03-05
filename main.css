@@ -1,0 +1,146 @@
+/* IMPORT ------------------------------------------------------------- */
+@font-face {
+  font-family: "Basteleur";
+  src: url(assets/fonts/Basteleur/Basteleur-Moonlight.woff2) format("woff2"),
+    url(assets/fonts/Basteleur/Basteleur-Moonlight.woff) format("woff"),
+    url(assets/fonts/Basteleur/Basteleur-Moonlight.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Basteleur-bold";
+  src: url(assets/fonts/Basteleur/Basteleur-Bold.woff2) format("woff2"),
+    url(assets/fonts/Basteleur/Basteleur-Bold.woff) format("woff"),
+    url(assets/fonts/Basteleur/Basteleur-Bold.ttf) format("truetype");
+}
+
+/* VARIABLES --------------------------------------------------------- */
+
+:root {
+  --color-background-1: #000;
+  --color-1: #fff;
+  --color-2: #09b370;
+  --color-3: #ffb200;
+  --color-4: #8e12b3;
+  --font-1: "Basteleur";
+
+  /* h1 styling */
+  --low: 20%;
+  --high: 80%;
+  --gap: 3vw;
+  --offset: calc(var(--gap) / 2);
+  --clip1: polygon(
+    calc(var(--high) - var(--offset)) 0,
+    calc(var(--low) - var(--offset)) 100%,
+    0 100%,
+    0 0
+  );
+  --clip2: polygon(
+    calc(var(--high) + var(--offset)) 0,
+    100% 0,
+    100% 100%,
+    calc(var(--low) + var(--offset)) 100%
+  );
+  --anim-linear: title-slide 2s ease-out;
+}
+
+/* STYLING --------------------------------------------------------- */
+
+/* GENERAL */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY */
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-background-1);
+  color: var(--color-1);
+}
+
+h1 {
+  width: 100%;
+  position: relative;
+  text-transform: uppercase;
+  font-family: var(--font-1), serif;
+  font-size: 2rem;
+  line-height: 1;
+  text-align: center;
+  color: transparent;
+}
+
+h1::before,
+h1::after {
+  content: "We are\a coming soon";
+  white-space: pre;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: var(--color-1);
+  z-index: -1;
+}
+
+h1::before {
+  color: var(--color-1);
+  -webkit-clip-path: var(--clip1);
+  clip-path: var(--clip1);
+}
+
+h1::after {
+  color: var(--color-2);
+  -webkit-clip-path: var(--clip2);
+  clip-path: var(--clip2);
+}
+
+/* ANIMATION ------------------------------------------------*/
+
+h1::before {
+  animation: title-slide-left 1.3s cubic-bezier(0, 0, 0, 0.99);
+}
+@keyframes title-slide-left {
+  0% {
+    left: -100vw;
+    top: -100vh;
+  }
+  100% {
+    left: 0;
+    top: 0;
+  }
+}
+
+h1::after {
+  animation: title-slide-right 2s cubic-bezier(0.45, 0, 0, 1.25);
+}
+@keyframes title-slide-right {
+  0% {
+    top: -100vh;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+/* RESPONSIVE ------------------------------------------------*/
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 3rem;
+    transition: font-size 0.55s;
+  }
+}
+
+@media (min-width: 1440px) {
+  h1 {
+    font-size: 4rem;
+    transition: font-size 0.5s;
+  }
+}
